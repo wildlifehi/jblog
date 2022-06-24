@@ -16,14 +16,13 @@
 			<ul>
 				<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
 				<li><a href="${pageContext.request.contextPath}/blog/${authUser.id }">블로그메인화면</a></li>
-				<li><a href="${pageContext.request.contextPath}/blog/admin">관리자메인</a></li>
 			</ul>
 		</div>
 		<div id="wrapper">
 			<div id="content" class="full-screen">
 				<ul class="admin-menu">
-					<li><a href="">기본설정</a></li>
-					<li><a href="">카테고리</a></li>
+					<li><a href="${pageContext.request.contextPath}/blog/admin">기본설정</a></li>
+					<li><a href="${pageContext.request.contextPath}/blog/category">카테고리</a></li>
 					<li class="selected">글작성</li>
 				</ul>
 				<form action="" method="post">
