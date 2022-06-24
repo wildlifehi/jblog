@@ -1,7 +1,5 @@
 package com.douzone.jblog.controller;
 
-import java.util.Optional;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,9 +7,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 //@RequestMapping("/{id:(?!assets.*)}") // 중복되는거 맨 위로 올리고
 @Controller
-@RequestMapping("/blog")
+@RequestMapping("/blog/")
 public class BlogController {
-	
+
+	@RequestMapping({"", "/{id}"})
+	public String index(@PathVariable("id") String id) {
+		
+		return "blog/main";
+	}
 	
 	
 	

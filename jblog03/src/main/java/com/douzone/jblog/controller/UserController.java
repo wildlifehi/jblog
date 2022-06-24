@@ -19,6 +19,13 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private BlogService blogService;
+	
+	@Autowired
+	private CategoryService categoryService;
+	
+	
 	@RequestMapping(value="/join", method=RequestMethod.GET)
 	public String join() {
 		
@@ -29,10 +36,13 @@ public class UserController {
 	public String join(@ModelAttribute UserVo userVo, BindingResult result, Model model) {
 		
 		userService.join(userVo);
+		blogService.
+		categoryService.
+		
+		
 		return "redirect:/user/joinsuccess";
 	}
 	
-	@ResponseBody
 	@RequestMapping("/joinsuccess")
 	public String joinSuccess() {
 		return "user/joinsuccess";
@@ -44,6 +54,7 @@ public class UserController {
 		return "user/login";
 	}
 	
+	//로그인 실패하는 경우도 만들어줘야 할 것.
 	@RequestMapping(value="/auth")
 	public void auth() {
 	}

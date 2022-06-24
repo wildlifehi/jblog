@@ -11,7 +11,20 @@
 </head>
 <body>
 	<div class="center-content">
-		<c:import url="/WEB-INF/views/includes/header.jsp"/>
+			<h1 class="logo">JBlog</h1>
+			<ul class="menu">
+				<c:choose>
+				<c:when test="${empty authUser }">
+					<li><a href="${pageContext.request.contextPath}/user/login">로그인</a></li>
+					<li><a href="${pageContext.request.contextPath}/user/join">회원가입</a></li>
+				</c:when>
+				<c:otherwise>
+					<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
+					<li><a href="${pageContext.request.contextPath}/blog/${authUser.id }">내블로그</a></li>
+					<li>${authUser.name }님 안녕하세요 ^^;</li>
+				</c:otherwise>
+				</c:choose>
+			</ul>
 		<form class="search-form">
 			<fieldset>
 				<input type="text" name="keyword" />
