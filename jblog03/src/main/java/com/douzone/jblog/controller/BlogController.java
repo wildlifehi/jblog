@@ -5,9 +5,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+//@ResponseBody
+
 //@RequestMapping("/{id:(?!assets.*)}") // 중복되는거 맨 위로 올리고
 @Controller
-@RequestMapping("/blog/")
+@RequestMapping("/blog")
 public class BlogController {
 
 	@RequestMapping({"", "/{id}"})
@@ -17,11 +19,23 @@ public class BlogController {
 	}
 	
 	
+	@RequestMapping("/admin")
+	public String admin() {
+		
+		return "blog/admin/basic";
+	}
 	
+	@RequestMapping("/category")
+	public String category() {
+		
+		return "blog/admin/category";
+	}
 	
-	
-	
-	
+	@RequestMapping("/write")
+	public String write() {
+		
+		return "blog/admin/write";
+	}
 	
 
 //	@ResponseBody

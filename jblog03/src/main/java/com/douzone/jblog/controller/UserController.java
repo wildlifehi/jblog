@@ -19,11 +19,11 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@Autowired
-	private BlogService blogService;
-	
-	@Autowired
-	private CategoryService categoryService;
+//	@Autowired
+//	private BlogService blogService;
+//	
+//	@Autowired
+//	private CategoryService categoryService;
 	
 	
 	@RequestMapping(value="/join", method=RequestMethod.GET)
@@ -36,8 +36,8 @@ public class UserController {
 	public String join(@ModelAttribute UserVo userVo, BindingResult result, Model model) {
 		
 		userService.join(userVo);
-		blogService.
-		categoryService.
+//		blogService.
+//		categoryService.
 		
 		
 		return "redirect:/user/joinsuccess";
