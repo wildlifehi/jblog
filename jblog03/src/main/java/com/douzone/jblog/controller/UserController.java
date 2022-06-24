@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.douzone.jblog.service.UserService;
 import com.douzone.jblog.vo.UserVo;
@@ -19,7 +20,7 @@ public class UserController {
 	private UserService userService;
 	
 	@RequestMapping(value="/join", method=RequestMethod.GET)
-	public String join(@ModelAttribute UserVo userVo) {
+	public String join() {
 		
 		return "user/join";
 	}
@@ -28,13 +29,14 @@ public class UserController {
 	public String join(@ModelAttribute UserVo userVo, BindingResult result, Model model) {
 		
 		userService.join(userVo);
-		return "/user/joinsuccess";
+		return "redirect:/user/joinsuccess";
 	}
-
-//	@RequestMapping("/joinsuccess")
-//	public String joinSuccess() {
-//		return "user/joinsuccess";
-//	}
+	
+	@ResponseBody
+	@RequestMapping("/joinsuccess")
+	public String joinSuccess() {
+		return "user/joinsuccess";
+	}
 	
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public String login() {
