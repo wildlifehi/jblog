@@ -1,6 +1,9 @@
 package com.douzone.jblog.controller;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -8,15 +11,26 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/blog")
 public class BlogController {
-
-	@RequestMapping("")
-	public String main() {
+	
+	@ResponseBody
+	@RequestMapping({"", "/{pathNo1}", "/{pathNo1}/{pathNo2}"}) 
+	public String index(
+	@PathVariable("id") String id, 
+	@PathVariable("pathNo1") Optional<Long> pathNo1,
+	@PathVariable("pathNo2") Optional<Long> pathNo2) {
 		
-		return "blog/main";
+//	Long categoryNo = 0L;
+//	Long postNo = 0L;
+//	if(pathNo1.isPresent()) {
+//		categoryNo = pathNo1.get();
+//	} else if(pathNo1.isPresent()) {
+//		
+//	}
+	
+	return "blog/main";
+//	categoryService.getCategories(id, categoryNo);
+	
 	}
-	
-	
-	
 	
 	
 	
