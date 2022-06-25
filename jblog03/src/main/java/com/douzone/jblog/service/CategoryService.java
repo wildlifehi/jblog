@@ -33,4 +33,9 @@ public class CategoryService {
 		
 		categoryRepository.categoryInsert(categoryVo);
 	}
+
+	public CategoryVo getCategoryByCategoryName(String categoryName) {
+		
+		return categoryRepository.findCategoryByName(categoryName);
+	}
 }

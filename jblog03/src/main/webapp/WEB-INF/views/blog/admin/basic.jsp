@@ -15,7 +15,7 @@
 			<h1>Spring 이야기</h1>
 			<ul>
 				<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
-				<li><a href="${pageContext.request.contextPath}/blog/${authUser.id }">블로그메인화면</a></li>
+				<li><a href="${pageContext.request.contextPath}/${authUser.id }">블로그메인화면</a></li>
 			</ul>
 		</div>
 		<div id="wrapper">

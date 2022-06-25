@@ -33,6 +33,13 @@ public class CategoryRepository {
 		return sqlSession.insert("category.categoryInsert", vo) == 1;
 	}
 
+	public CategoryVo findCategoryByName(String categoryName) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("categoryName", categoryName);
+		
+		return sqlSession.selectOne("category.findCategoryByName", categoryName);
+	}
+
 
 
 }

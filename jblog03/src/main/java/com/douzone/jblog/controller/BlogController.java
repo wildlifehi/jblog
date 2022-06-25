@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.douzone.jblog.service.BlogService;
 import com.douzone.jblog.service.CategoryService;
@@ -20,6 +21,11 @@ import com.douzone.jblog.vo.PostVo;
 @RequestMapping("/{id:(?!assets).*}")
 public class BlogController {
 
+	
+	List<BlogVo> bloglist;
+	List<CategoryVo> categorylist;
+	List<PostVo> postlist;
+	PostVo postVo;
 	
 	@Autowired
 	private BlogService blogService;
@@ -52,24 +58,24 @@ public class BlogController {
 		
 
 		//블로그 리스트는 쓸모없는데 우선은 그냥 박아두었다.
-		List<BlogVo> bloglist = blogService.getBlogListById(id);
+		bloglist = blogService.getBlogListById(id);
 		//블로그 title은 필요합니다.
 		
-		System.out.println(bloglist);
+		//System.out.println(bloglist);
 		
 		
 		
 		//이친구는 카테고리 리스트 띄어주는 용도
-		List<CategoryVo> categorylist = categoryService.getCategoryById(id);
-		System.out.println(categorylist);
+		categorylist = categoryService.getCategoryById(id);
+		//System.out.println(categorylist);
 	
 		//이친구는 포스트 리스트 띄어주는 용도
-		List<PostVo> postlist = postService.getPostlistByCategoryNo(categoryNo);
-		System.out.println(postlist);
+		postlist = postService.getPostlistByCategoryNo(categoryNo);
+		//System.out.println(postlist);
 		
 		//이친구는 포스트 번호 받아서 해당번호에 해당하는 글 가져오는 용도.
-		PostVo postVo = postService.getPostContentsByPostNo(postNo);
-		System.out.println(postVo);
+		postVo = postService.getPostContentsByPostNo(postNo);
+		//System.out.println(postVo);
 
 		System.out.println("여기가지인가요");
 		
@@ -100,8 +106,6 @@ public class BlogController {
 	@RequestMapping("/category")
 	public String category() {
 		
-		
-		
 		return "blog/admin/category";
 	}
 	
@@ -118,16 +122,40 @@ public class BlogController {
 	
 	
 	@RequestMapping("/write")
-	public String write() {
+	public String write(Model model) {
 		
+		model.addAttribute("categorylist", categorylist);
 		return "blog/admin/write";
 	}
 	
+	//@PathVariable("category") String category
 	
-	
-	
-	
-	
+	@RequestMapping("/postInsert")
+	public String postInsert(@RequestParam("category") String category, PostVo postVo, Model model) {
+		
+		System.out.println(category);
+		
+		if (category.equals("default")) {
+			
+			return "redirect:/blog/write";
+
+		} else {
+			
+			CategoryVo categoryVo = categoryService.getCategoryByCategoryName(category);
+			
+			System.out.println(categoryVo);
+			
+			postVo.setCategoryNo(categoryVo.getNo());
+			System.out.println(postVo);
+			
+			//postService.postInsert(postVo);
+			
+			
+			return "redirect:/blog/write";
+		}
+		
+
+	}
 	
 	
 	
