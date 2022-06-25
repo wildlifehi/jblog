@@ -1,25 +1,25 @@
 package com.douzone.jblog.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.douzone.jblog.service.BlogService;
 import com.douzone.jblog.service.CategoryService;
+import com.douzone.jblog.service.PostService;
 import com.douzone.jblog.vo.BlogVo;
 import com.douzone.jblog.vo.CategoryVo;
+import com.douzone.jblog.vo.PostVo;
 
-//@ResponseBody
-
-//@RequestMapping("/{id:(?!assets.*)}") // 중복되는거 맨 위로 올리고
 @Controller
-@RequestMapping("/blog")
+@RequestMapping("/{id:(?!assets).*}")
 public class BlogController {
 
-	
 	
 	@Autowired
 	private BlogService blogService;
@@ -27,35 +27,95 @@ public class BlogController {
 	@Autowired
 	private CategoryService categoryService;
 	
-	@RequestMapping("/{id}")
-	public String index(@PathVariable("id") String id) {
+	@Autowired
+	private PostService postService;
+	
+	
+	@RequestMapping({"", "/{pathNo1}", "/{pathNo1}/{pathNo2}"})
+	public String index(
+		@PathVariable("id") String id,
+		@PathVariable("pathNo1") Optional<Long> pathNo1,
+		@PathVariable("pathNo2") Optional<Long> pathNo2, Model model) {
 		
-		//블로그 메인으로 들어가는 순간
-		//해당 id에 대한 카테고리와 블로그를 리스트로 가져와야할 것.
 		
+		Long categoryNo = 0L ;
+		Long postNo = 0L ;
+		
+		if(pathNo2.isPresent()) {
+			categoryNo = pathNo1.get();
+			postNo = pathNo2.get();
+		} else if(pathNo1.isPresent()) {
+			categoryNo = pathNo1.get();
+		}
+		
+		//Integer.parseInt(String.valueOf(categoryNo))
+		
+
+		//블로그 리스트는 쓸모없는데 우선은 그냥 박아두었다.
 		List<BlogVo> bloglist = blogService.getBlogListById(id);
+		//블로그 title은 필요합니다.
 		
 		System.out.println(bloglist);
 		
-		List<CategoryVo> categorylist = categoryService.getCategoryById(id);
 		
+		
+		//이친구는 카테고리 리스트 띄어주는 용도
+		List<CategoryVo> categorylist = categoryService.getCategoryById(id);
 		System.out.println(categorylist);
+	
+		//이친구는 포스트 리스트 띄어주는 용도
+		List<PostVo> postlist = postService.getPostlistByCategoryNo(categoryNo);
+		System.out.println(postlist);
+		
+		//이친구는 포스트 번호 받아서 해당번호에 해당하는 글 가져오는 용도.
+		PostVo postVo = postService.getPostContentsByPostNo(postNo);
+		System.out.println(postVo);
+
+		System.out.println("여기가지인가요");
+		
+		
+		
+		model.addAttribute("categorylist", categorylist);
+		model.addAttribute("postlist", postlist);
+		model.addAttribute("postVo", postVo);
+
 		
 		return "blog/main";
 	}
 	
 	
+	
+	
+	
+	
+	
+	
 	@RequestMapping("/admin")
 	public String admin() {
 		
+		//아마 여기서 블로그 리스트 쓰게될 것.
 		return "blog/admin/basic";
 	}
 	
 	@RequestMapping("/category")
 	public String category() {
 		
+		
+		
 		return "blog/admin/category";
 	}
+	
+	@RequestMapping("/categoryInsert")
+	public String categoryInsert(@PathVariable("id") String id, CategoryVo categoryVo, Model model) {
+		
+		categoryVo.setBlogId(id);
+		categoryService.categoryInsert(categoryVo);
+		
+		return "redirect:/blog/category";
+	}
+	
+	
+	
 	
 	@RequestMapping("/write")
 	public String write() {
@@ -63,71 +123,50 @@ public class BlogController {
 		return "blog/admin/write";
 	}
 	
-//	{id} {category} {post}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 //	@ResponseBody
-//	@RequestMapping({"", "/{pathNo1}", "/{pathNo1}/{pathNo2}"}) 
+//	@RequestMapping({"", "/{}", "/{pathNo1}/{pathNo2}"})
 //	public String index(
-//	@PathVariable("id") String id, 
-//	@PathVariable("pathNo1") Optional<Long> pathNo1,
-//	@PathVariable("pathNo2") Optional<Long> pathNo2) {
+//		@PathVariable("id") String id,
+//		@PathVariable("pathNo1") Optional<Long> pathNo1,
+//		@PathVariable("pathNo2") Optional<Long> pathNo2) {
 //		
-//	Long categoryNo = 0L;
-//	Long postNo = 0L;
-//	if(pathNo1.isPresent()) {
-//		categoryNo = pathNo1.get();
-//	} else if(pathNo1.isPresent()) {
+//		Long categoryNo = 0L;
+//		Long postNo = 0L;
 //		
+//		if(pathNo2.isPresent()) {
+//			categoryNo = pathNo1.get();
+//			postNo = pathNo2.get();
+//		} else if(pathNo1.isPresent()) {
+//			categoryNo = pathNo1.get();
 //		}
-//	
-//	return "blog/main";
-//		categoryService.getCategories(id, categoryNo);
-//	
-//	}
-//	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-//	// 여기서 어드민까지 전부 처리할 것.
-//	// 컨트롤러는 더 이상 만들지 말고 여기서 다 처리하도록
-//	
-//	@RequestMapping({"", "/{categoryNo}", "/{categoryNo}/{postNo}"}) 
-//	@RequestMapping({"", "/{pathNo1}", "/{pathNo1}/{pathNo2}"}) 
-//	//들어오는 방법은 3가지이므로 3가지 멀티매핑으로 설정
-//	public String index(
-//			@PathVariable("id") String id, 
-//			@PathVariable("pathNo1") Optional<Long> pathNo1,
-//			@PathVariable("pathNo1") Optional<Long> pathNo2) {
-//				
-//			Long categoryNo = 0L;
-//			Long postNo = 0L;
-//			if(pathNo1.isPresent()) {
-//				categoryNo = pathNo1.get();
-//			} else if(pathNo1.isPresent()) {
-//				
-//			}
-//			
-//			categoryService.getCategories(id, categoryNo);
-//			
-//	}
-//
-//	@RequestMapping("/{id}")
-//	public String adminBasic(@PathVariable("id") String id) {
 //		
+//		return "BlogController.index(" + id + ", " + categoryNo + ", " + postNo + ")";
 //	}
-//	
-//	
-	
 }

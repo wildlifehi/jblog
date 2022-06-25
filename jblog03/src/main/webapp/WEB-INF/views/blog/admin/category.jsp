@@ -21,9 +21,9 @@
 		<div id="wrapper">
 			<div id="content" class="full-screen">
 				<ul class="admin-menu">
-					<li><a href="${pageContext.request.contextPath}/blog/admin">기본설정</a></li>
+					<li><a href="${pageContext.request.contextPath}/blog/admin/">기본설정</a></li>
 					<li class="selected">카테고리</li>
-					<li><a href="${pageContext.request.contextPath}/blog/write">글작성</a></li>
+					<li><a href="${pageContext.request.contextPath}/blog/write/">글작성</a></li>
 				</ul>
 		      	<table class="admin-cat">
 		      		<tr>
@@ -57,20 +57,22 @@
 				</table>
       	
       			<h4 class="n-c">새로운 카테고리 추가</h4>
-		      	<table id="admin-cat-add">
-		      		<tr>
-		      			<td class="t">카테고리명</td>
-		      			<td><input type="text" name="name"></td>
-		      		</tr>
-		      		<tr>
-		      			<td class="t">설명</td>
-		      			<td><input type="text" name="desc"></td>
-		      		</tr>
-		      		<tr>
-		      			<td class="s">&nbsp;</td>
-		      			<td><input type="submit" value="카테고리 추가"></td>
-		      		</tr>      		      		
-		      	</table> 
+      			<form action="${pageContext.request.contextPath }/${authUser.id }/categoryInsert" method="post">
+			      	<table id="admin-cat-add">
+			      		<tr>
+			      			<td class="t">카테고리명</td>
+			      			<td><input type="text" name="name"></td>
+			      		</tr>
+			      		<tr>
+			      			<td class="t">설명</td>
+			      			<td><input type="text" name="description"></td>
+			      		</tr>
+			      		<tr>
+			      			<td class="s">&nbsp;</td>
+			      			<td><input type="submit" value="카테고리 추가"></td>
+			      		</tr>      		      		
+			      	</table>
+		      	</form>
 			</div>
 		</div>
 		<div id="footer">

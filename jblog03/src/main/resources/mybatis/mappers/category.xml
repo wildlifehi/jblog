@@ -9,6 +9,16 @@
 		]]>
 	</insert>
 	
+	<insert id="categoryInsert" parameterType="categoryvo">
+		<![CDATA[
+		insert into 
+		category 
+		values ( null, #{name }, #{description }, #{blogId })
+		]]>
+	</insert>
+	
+	
+	
 	<select id="findAllById" parameterType="map" resultType="categoryvo">
 		<![CDATA[
 		select no,
@@ -19,6 +29,7 @@
 	     where blog_id = #{id }		
 		]]>	
 	</select>
+	
 	
 	
 </mapper>

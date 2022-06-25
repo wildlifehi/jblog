@@ -28,6 +28,11 @@ public class CategoryRepository {
 		return sqlSession.selectList("category.findAllById", map);
 	}
 
+	public boolean categoryInsert(CategoryVo vo) {
+
+		return sqlSession.insert("category.categoryInsert", vo) == 1;
+	}
+
 
 
 }
