@@ -5,7 +5,7 @@
 		<![CDATA[
 		insert into 
 		category 
-		values ( null, "새 카테고리", "카테고리 내용을 추가해주세요", #{blogId })
+		values ( null, #{name }, "카테고리 내용을 추가해주세요", #{blogId })
 		]]>
 	</insert>
 	

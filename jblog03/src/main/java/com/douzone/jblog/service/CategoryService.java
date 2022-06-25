@@ -19,6 +19,7 @@ public class CategoryService {
 		
 		CategoryVo categoryVo = new CategoryVo();
 		categoryVo.setBlogId(vo.getId());
+		categoryVo.setName(vo.getId()+"의 새 카테고리");
 		
 		categoryRepository.insert(categoryVo);
 		
@@ -34,8 +35,8 @@ public class CategoryService {
 		categoryRepository.categoryInsert(categoryVo);
 	}
 
-	public CategoryVo getCategoryByCategoryName(String categoryName) {
+	public CategoryVo getCategoryByCategoryName(String name) {
 		
-		return categoryRepository.findCategoryByName(categoryName);
+		return categoryRepository.findCategoryByName(name);
 	}
 }

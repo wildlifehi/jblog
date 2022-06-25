@@ -32,9 +32,9 @@
 			      			<td>
 			      				<input type="text" size="60" name="title">
 				      			<select name="category">	
-				      					<option value="defualt" selected>기타</option>			      					
+				      					<option value="default" selected>기타</option>			      					
 				      				<c:forEach items="${categorylist}" var="list">
-				      					<option>${list.name }</option>
+				      					<option value="${list.name }">${list.name }</option>
 				      				</c:forEach>
 				      			</select>
 				      		</td>

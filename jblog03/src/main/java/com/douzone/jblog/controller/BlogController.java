@@ -76,9 +76,6 @@ public class BlogController {
 		//이친구는 포스트 번호 받아서 해당번호에 해당하는 글 가져오는 용도.
 		postVo = postService.getPostContentsByPostNo(postNo);
 		//System.out.println(postVo);
-
-		System.out.println("여기가지인가요");
-		
 		
 		
 		model.addAttribute("categorylist", categorylist);
@@ -131,15 +128,17 @@ public class BlogController {
 	//@PathVariable("category") String category
 	
 	@RequestMapping("/postInsert")
-	public String postInsert(@RequestParam("category") String category, PostVo postVo, Model model) {
+	public String postInsert(@PathVariable("id") String id, @RequestParam("category") String category, PostVo postVo, Model model) {
 		
-		System.out.println(category);
 		
-		if (category.equals("default")) {
+		
+		if ("default".equals(category)) {
 			
 			return "redirect:/blog/write";
 
 		} else {
+			
+			System.out.println(category);
 			
 			CategoryVo categoryVo = categoryService.getCategoryByCategoryName(category);
 			
@@ -148,10 +147,10 @@ public class BlogController {
 			postVo.setCategoryNo(categoryVo.getNo());
 			System.out.println(postVo);
 			
-			//postService.postInsert(postVo);
+			postService.postInsert(postVo);
+			System.out.println("내용 추가 완료했어요");
 			
-			
-			return "redirect:/blog/write";
+			return "redirect:/"+id;
 		}
 		
 
