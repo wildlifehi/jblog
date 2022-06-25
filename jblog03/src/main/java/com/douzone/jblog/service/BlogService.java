@@ -1,5 +1,7 @@
 package com.douzone.jblog.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,11 @@ public class BlogService {
 		blogvo.setLogo("default url");
 		
 		blogRepository.insert(blogvo);
+	}
+
+	public List<BlogVo> getBlogListById(String id) {
+		
+		return blogRepository.findAllByID(id);
 	}
 
 }

@@ -9,5 +9,16 @@
 		]]>
 	</insert>
 	
+	<select id="findAllById" parameterType="map" resultType="categoryvo">
+		<![CDATA[
+		select no,
+			   name,
+			   description,
+			   blog_id as blogId
+	      from category
+	     where blog_id = #{id }		
+		]]>	
+	</select>
+	
 	
 </mapper>

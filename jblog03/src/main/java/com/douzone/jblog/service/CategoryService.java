@@ -1,5 +1,7 @@
 package com.douzone.jblog.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,5 +22,10 @@ public class CategoryService {
 		
 		categoryRepository.insert(categoryVo);
 		
+	}
+
+	public List<CategoryVo> getCategoryById(String id) {
+		
+		return categoryRepository.findAllById(id);
 	}
 }

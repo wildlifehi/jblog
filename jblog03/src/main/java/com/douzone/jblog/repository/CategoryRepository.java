@@ -1,5 +1,9 @@
 package com.douzone.jblog.repository;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -15,6 +19,13 @@ public class CategoryRepository {
 	public boolean insert(CategoryVo vo) {
 		
 		return sqlSession.insert("category.insert", vo) == 1;
+	}
+
+	public List<CategoryVo> findAllById(String id) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		
+		return sqlSession.selectList("category.findAllById", map);
 	}
 
 

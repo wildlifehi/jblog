@@ -1,9 +1,16 @@
 package com.douzone.jblog.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.douzone.jblog.service.BlogService;
+import com.douzone.jblog.service.CategoryService;
+import com.douzone.jblog.vo.BlogVo;
+import com.douzone.jblog.vo.CategoryVo;
 
 //@ResponseBody
 
@@ -12,8 +19,27 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/blog")
 public class BlogController {
 
+	
+	
+	@Autowired
+	private BlogService blogService;
+
+	@Autowired
+	private CategoryService categoryService;
+	
 	@RequestMapping("/{id}")
 	public String index(@PathVariable("id") String id) {
+		
+		//블로그 메인으로 들어가는 순간
+		//해당 id에 대한 카테고리와 블로그를 리스트로 가져와야할 것.
+		
+		List<BlogVo> bloglist = blogService.getBlogListById(id);
+		
+		System.out.println(bloglist);
+		
+		List<CategoryVo> categorylist = categoryService.getCategoryById(id);
+		
+		System.out.println(categorylist);
 		
 		return "blog/main";
 	}
