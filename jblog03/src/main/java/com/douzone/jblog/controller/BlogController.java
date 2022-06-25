@@ -106,16 +106,18 @@ public class BlogController {
 		return "blog/admin/category";
 	}
 	
+	
 	@RequestMapping("/categoryInsert")
 	public String categoryInsert(@PathVariable("id") String id, CategoryVo categoryVo, Model model) {
+		
+		
+	//카테고리명 중복안되게 반드시 체크해줄것.
 		
 		categoryVo.setBlogId(id);
 		categoryService.categoryInsert(categoryVo);
 		
-		return "redirect:/blog/category";
+		return "redirect:/"+id;
 	}
-	
-	
 	
 	
 	@RequestMapping("/write")
