@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.douzone.jblog.service.BlogService;
+import com.douzone.jblog.service.CategoryService;
 import com.douzone.jblog.service.UserService;
 import com.douzone.jblog.vo.UserVo;
 
@@ -19,11 +21,11 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-//	@Autowired
-//	private BlogService blogService;
-//	
-//	@Autowired
-//	private CategoryService categoryService;
+	@Autowired
+	private BlogService blogService;
+
+	@Autowired
+	private CategoryService categoryService;
 	
 	
 	@RequestMapping(value="/join", method=RequestMethod.GET)
@@ -36,8 +38,8 @@ public class UserController {
 	public String join(@ModelAttribute UserVo userVo, BindingResult result, Model model) {
 		
 		userService.join(userVo);
-//		blogService.
-//		categoryService.
+		blogService.join(userVo);
+		categoryService.join(userVo);
 		
 		
 		return "redirect:/user/joinsuccess";

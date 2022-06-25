@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/blog")
 public class BlogController {
 
-	@RequestMapping({"", "/{id}"})
+	@RequestMapping("/{id}")
 	public String index(@PathVariable("id") String id) {
 		
 		return "blog/main";
@@ -37,7 +37,7 @@ public class BlogController {
 		return "blog/admin/write";
 	}
 	
-
+//	{id} {category} {post}
 //	@ResponseBody
 //	@RequestMapping({"", "/{pathNo1}", "/{pathNo1}/{pathNo2}"}) 
 //	public String index(
@@ -77,7 +77,7 @@ public class BlogController {
 //	// 여기서 어드민까지 전부 처리할 것.
 //	// 컨트롤러는 더 이상 만들지 말고 여기서 다 처리하도록
 //	
-//	//@RequestMapping({"", "/{categoryNo}", "/{categoryNo}/{postNo}"}) 
+//	@RequestMapping({"", "/{categoryNo}", "/{categoryNo}/{postNo}"}) 
 //	@RequestMapping({"", "/{pathNo1}", "/{pathNo1}/{pathNo2}"}) 
 //	//들어오는 방법은 3가지이므로 3가지 멀티매핑으로 설정
 //	public String index(
