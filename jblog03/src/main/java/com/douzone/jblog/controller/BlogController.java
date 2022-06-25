@@ -147,7 +147,7 @@ public class BlogController {
 			postVo.setCategoryNo(categoryVo.getNo());
 			System.out.println(postVo);
 			
-			postService.postInsert(postVo);
+			//postService.postInsert(postVo);
 			System.out.println("내용 추가 완료했어요");
 			
 			return "redirect:/"+id;
