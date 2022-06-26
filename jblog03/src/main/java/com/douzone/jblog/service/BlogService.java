@@ -18,7 +18,7 @@ public class BlogService {
 		BlogVo blogvo = new BlogVo();
 		blogvo.setId(vo.getId());
 		blogvo.setTitle(vo.getName()+"님의 블로그 입니다.");
-		blogvo.setLogo("default url");
+		blogvo.setLogo("/assets/images/spring-logo.jpg");
 		
 		blogRepository.insert(blogvo);
 	}

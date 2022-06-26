@@ -39,4 +39,12 @@ public class CategoryService {
 		
 		return categoryRepository.findCategoryByName(name);
 	}
+	
+	
+	//휘민
+	public List<CategoryVo> getCategoryList(String blogId) {
+		return categoryRepository.findListbyId(blogId);
+	}
+	
+	
 }

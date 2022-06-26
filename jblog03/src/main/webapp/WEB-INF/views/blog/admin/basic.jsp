@@ -22,8 +22,8 @@
 			<div id="content" class="full-screen">
 				<ul class="admin-menu">
 					<li class="selected">기본설정</li>
-					<li><a href="${pageContext.request.contextPath}/blog/category">카테고리</a></li>
-					<li><a href="${pageContext.request.contextPath}/blog/write">글작성</a></li>
+					<li><a href="${pageContext.request.contextPath}/${authUser.id }/category">카테고리</a></li>
+					<li><a href="${pageContext.request.contextPath}/${authUser.id }/write">글작성</a></li>
 				</ul>
 				<form action="${pageContext.request.contextPath}/${authUser.id }/blogUpdate" method="post" enctype="multipart/form-data">
 	 		      	<table class="admin-config">

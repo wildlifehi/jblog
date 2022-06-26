@@ -22,11 +22,6 @@ import com.douzone.jblog.vo.PostVo;
 @Controller
 @RequestMapping("/{id:(?!assets).*}")
 public class BlogController {
-
-	BlogVo blogVo;
-	List<CategoryVo> categorylist;
-	List<PostVo> postlist;
-	PostVo postVo;
 	
 	@Autowired
 	private BlogService blogService;
@@ -39,6 +34,11 @@ public class BlogController {
 	
 	@Autowired
 	private FileUploadService fileUploadService;
+	
+	BlogVo blogVo;
+	List<CategoryVo> categorylist;
+	List<PostVo> postlist;
+	PostVo postVo;
 	
 	
 	@RequestMapping({"", "/{pathNo1}", "/{pathNo1}/{pathNo2}"})
@@ -57,7 +57,6 @@ public class BlogController {
 
 		} else if(pathNo1.isPresent()) {
 			categoryNo = Long.parseLong(pathNo1.get());
-
 		}
 		
 		//Integer.parseInt(String.valueOf(categoryNo))
@@ -66,10 +65,8 @@ public class BlogController {
 		//블로그 리스트는 아마 당장은 쓸일업을 것이다.
 		//bloglist = blogService.getBlogListById(id);
 		
-		
-		//해당 id의 블로그 정보를 뽑아오기 위한 용도
 		blogVo = blogService.getBlogVoById(id);
-		System.out.println(blogVo);		
+		//System.out.println(blogVo);
 		
 		//id를 통해 카테고리 리스트 받아오는 이친구는 카테고리 리스트 띄어주는 용도
 		categorylist = categoryService.getCategoryById(id);
@@ -87,12 +84,12 @@ public class BlogController {
 			postVo = null;
 		}
 		
+		
 
 		model.addAttribute("blogVo", blogVo);
 		model.addAttribute("categorylist", categorylist);
 		model.addAttribute("postlist", postlist);
 		model.addAttribute("postVo", postVo);
-
 		
 		return "blog/main";
 	}
@@ -116,7 +113,7 @@ public class BlogController {
 		
 		String url = fileUploadService.restoreImage(logoFile);
 		
-		
+		blogVo = blogService.getBlogVoById(id);
 		//여기서 blogVo 내용을 수정해서 업데이트 해줄 것.
 		blogVo.setTitle(title);
 		
@@ -134,7 +131,16 @@ public class BlogController {
 	//************카테고리 관련 핸들러 모음**************//
 	//추후 그냥 누르면 겟 방식, 내용 저장시 포스트 방식으로 분기해줄 것 
 	@RequestMapping("/category")
-	public String category(Model model) {
+	public String category(@PathVariable("id") String id, Model model) {
+		
+		
+		
+		// id를 바탕으로 카페고리 번호/ 카테고리명/ 포스트 수/ 설명 db단에서 groupby써서 받아와야함
+		// 일단 categorylist는 존재하는 상태니까, 해당 카테고리 번호에 대해 상응하는 
+		// 포스트 수 맞춰 계산하는 식으로 얻어와주기
+		
+		//List<Long> postCount = postService
+		
 		
 		model.addAttribute("blogVo", blogVo);
 		return "blog/admin/category";
@@ -168,15 +174,13 @@ public class BlogController {
 		
 		if ("default".equals(category)) {
 			
-			
-			return "redirect:/blog/write";
+			return "redirect:/"+id+"/write";
 
 		} else {
 			
 			CategoryVo categoryVo = categoryService.getCategoryByCategoryName(category);
 			
 			postVo.setCategoryNo(categoryVo.getNo());
-			System.out.println(postVo);
 			
 			postService.postInsert(postVo);
 			System.out.println("포스트 내용 추가 완료했어요");

@@ -41,5 +41,10 @@ public class CategoryRepository {
 	}
 
 
+	//휘민 도움
+	public List<CategoryVo> findListbyId(String blogId) {
+		return sqlSession.selectList("category.select", blogId);
+	}
+	
 
 }
