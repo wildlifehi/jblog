@@ -98,9 +98,27 @@ public class BlogController {
 	@RequestMapping("/admin")
 	public String admin() {
 		
-		//아마 여기서 블로그 리스트 쓰게될 것.
 		return "blog/admin/basic";
 	}
+	
+
+	//업뎃 내용으로 아직 이미지는 업로드되지 않는 상태이다.
+	@RequestMapping("/blogUpdate")
+	public String blogUpdate(@PathVariable("id") String id, @RequestParam("title") String title) {
+		
+		//여기서 blogVo 내용을 수정해서 업데이트 해줄 것.
+		blogVo.setTitle(title);
+		
+		//파일도 위에처럼 업뎃해줄것 블로그의 컬럼은 logo로 되어있다.
+		//blogVo.setTitle(file);
+		
+		
+		blogService.setBlogUpdate(blogVo);
+		
+		return "redirect:/"+id;
+	}
+
+	
 	
 	
 	//************카테고리 관련 핸들러 모음**************//

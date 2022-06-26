@@ -36,4 +36,10 @@ public class BlogRepository {
 		return sqlSession.selectOne("blog.findByID", map);
 	}
 
+
+	public boolean update(BlogVo vo) {
+		
+		return sqlSession.update("blog.Update", vo) == 1;
+	}
+
 }
