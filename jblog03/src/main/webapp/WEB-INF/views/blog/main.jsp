@@ -44,7 +44,7 @@
 				<h3>포스트 리스트</h3>
 				<ul class="blog-list">
 					<c:forEach items="${postlist }" var="list">
-						<li><a href="${pageContext.request.contextPath}/${authUser.id }/${list.categoryNo }/${list.no }">${list.title }</a> <span>2015/05/02</span>	</li>
+						<li><a href="${pageContext.request.contextPath}/${authUser.id }/${list.categoryNo }/${list.no }">${list.title }></a> <span>2015/05/02</span>	</li>
 					</c:forEach>
 				</ul>
 			</div>
@@ -52,7 +52,7 @@
 
 		<div id="extra">
 			<div class="blog-logo">
-				<img src="${pageContext.request.contextPath}/assets/images/spring-logo.jpg">
+				<img src="${pageContext.request.contextPath}/${blogVo.logo}">  
 			</div>
 		</div>
 

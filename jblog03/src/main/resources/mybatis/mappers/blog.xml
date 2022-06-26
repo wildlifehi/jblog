@@ -32,12 +32,19 @@
 	
 	
 	<update id="Update" parameterType="blogvo">
-		<![CDATA[
-		update blog
-		   set title = #{title }
-		 where id=#{id }	
-		
-		]]>
+
+		<choose>
+			<when test='logo == null'>
+				update blog
+			  	   set title= #{title }
+				 where id=#{id }	
+			</when>
+			<otherwise>
+				update blog
+			 	   set title= #{title }, logo= #{logo }
+			     where id=#{id }	
+			</otherwise>
+		</choose>		
 	</update>
 	
 	

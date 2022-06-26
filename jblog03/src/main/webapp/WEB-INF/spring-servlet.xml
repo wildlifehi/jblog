@@ -42,7 +42,7 @@
 	</bean>
 
 	<!-- MVC Resource Mapping -->
-	<mvc:resources mapping="/assets/iamges/**" location="file:/jblog-uploads/"  />
+	<mvc:resources mapping="/assets/images/**" location="file:/jblog-uploads/"  />
 
 	<!-- Mutipart Resolver -->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
