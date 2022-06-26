@@ -6,9 +6,10 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Calendar;
 
-import org.apache.commons.fileupload.FileUploadException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.douzone.jblog.exception.FileUploadException;
 
 @Service
 public class FileUploadService {
@@ -16,31 +17,33 @@ public class FileUploadService {
 	private static String URL_BASE = "/assets/images";	
 	
 	public String restoreImage(MultipartFile file) throws FileUploadException {
-	try {
-		File uploadDirectory = new File(SAVE_PATH);
-		if(!uploadDirectory.exists()) {
-			uploadDirectory.mkdir();
-		}			
-		if(file.isEmpty()) {
-			// throw new FileUploadException("file upload error: image empty");
-			return null;
-		}
+		try {
+			File uploadDirectory = new File(SAVE_PATH);
+			if(!uploadDirectory.exists()) {
+				uploadDirectory.mkdir();
+			}
 			
-		String originFilename = file.getOriginalFilename();
-		String extName = originFilename.substring(originFilename.lastIndexOf('.')+1);
-		String saveFilename = generateSaveFilename(extName);
-		
-		byte[] data = file.getBytes();
-		OutputStream os = new FileOutputStream(SAVE_PATH + "/" + saveFilename);
-		os.write(data);
-		os.close();
+			if(file.isEmpty()) {
+				// throw new FileUploadException("file upload error: image empty");
+				return null;
+			}
+			
+			String originFilename = file.getOriginalFilename();
+			String extName = originFilename.substring(originFilename.lastIndexOf('.')+1);
+			String saveFilename = generateSaveFilename(extName);
+			
+			byte[] data = file.getBytes();
+			OutputStream os = new FileOutputStream(SAVE_PATH + "/" + saveFilename);
+			os.write(data);
+			os.close();
+
 			return URL_BASE + "/" + saveFilename;
-		
-	} catch(IOException ex) {
-		throw new FileUploadException("file upload error:" + ex);
+			
+		} catch(IOException ex) {
+			throw new FileUploadException("file upload error:" + ex);
 		}
 	}
-
+	
 	private String generateSaveFilename(String extName) {
 		String filename = "";
 		
@@ -56,5 +59,5 @@ public class FileUploadService {
 		filename += ("." + extName);
 		
 		return filename;
-		}	
+	}	
 }
