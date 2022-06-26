@@ -45,6 +45,11 @@ public class CategoryService {
 	public List<CategoryVo> getCategoryList(String blogId) {
 		return categoryRepository.findListbyId(blogId);
 	}
+
+	public List<CategoryVo> getCategoryPostById(String id) 
+	{
+		return categoryRepository.findCategoryAndPostCountById(id);
+	}
 	
 	
 }

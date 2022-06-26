@@ -134,16 +134,12 @@ public class BlogController {
 	public String category(@PathVariable("id") String id, Model model) {
 		
 		
-		
-		// id를 바탕으로 번호는 카운트로 표기해줄 것 / 카테고리명/ 포스트 수/ 설명 db단에서 groupby써서 받아와야함
-		// 일단 categorylist는 존재하는 상태니까, 해당 카테고리 번호에 대해 상응하는 
-		// 포스트 수 맞춰 계산하는 식으로 얻어와주기
-		
-		// 그냥...포스트 수 따로 계산해서 넘겨주자요....ㅠㅠ..
-		
-		//List<Long> postCount = postService
-		
+		//카테고리 정보의 블로그 id는 안쓰므로 해당 위치에 post수를 넣어 보내주기
+		categorylist = categoryService.getCategoryPostById(id);
+	
+		System.out.println(categorylist);
 		model.addAttribute("categorylist", categorylist);
+		//기본 블로그 정보
 		model.addAttribute("blogVo", blogVo);
 		return "blog/admin/category";
 		

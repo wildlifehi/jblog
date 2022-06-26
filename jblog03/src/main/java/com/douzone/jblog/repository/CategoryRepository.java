@@ -45,6 +45,13 @@ public class CategoryRepository {
 	public List<CategoryVo> findListbyId(String blogId) {
 		return sqlSession.selectList("category.select", blogId);
 	}
+
+	public List<CategoryVo> findCategoryAndPostCountById(String id) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		
+		return sqlSession.selectList("category.findCategoryAndPostCountById", map);
+	}
 	
 
 }

@@ -25,6 +25,7 @@
 				</c:otherwise>
 				</c:choose>
 			</ul>
+			<li>카테고리 삭제기능까지는 구현하지 못했습니다. 죄송합니다.</li>
 		<form class="search-form">
 			<fieldset>
 				<input type="text" name="keyword" />
