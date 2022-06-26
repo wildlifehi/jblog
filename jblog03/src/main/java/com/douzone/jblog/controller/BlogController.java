@@ -140,17 +140,13 @@ public class BlogController {
 
 		} else {
 			
-			System.out.println(category);
-			
 			CategoryVo categoryVo = categoryService.getCategoryByCategoryName(category);
-			
-			System.out.println(categoryVo);
 			
 			postVo.setCategoryNo(categoryVo.getNo());
 			System.out.println(postVo);
 			
-			//postService.postInsert(postVo);
-			System.out.println("내용 추가 완료했어요");
+			postService.postInsert(postVo);
+			System.out.println("포스트 내용 추가 완료했어요");
 			
 			return "redirect:/"+id;
 		}

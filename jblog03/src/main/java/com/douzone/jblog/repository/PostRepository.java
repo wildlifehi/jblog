@@ -30,4 +30,8 @@ public class PostRepository {
 		return sqlSession.selectOne("post.findByNo", map);
 	}
 
+	public boolean insert(PostVo vo) {
+		return sqlSession.insert("post.insert", vo) == 1;
+	}
+
 }

@@ -24,4 +24,9 @@ public class PostService {
 		return postRepository.findByNo(postNo);
 	}
 
+	public void postInsert(PostVo vo) {
+		
+		postRepository.insert(vo);
+	}
+
 }
