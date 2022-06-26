@@ -21,7 +21,7 @@ import com.douzone.jblog.vo.PostVo;
 @RequestMapping("/{id:(?!assets).*}")
 public class BlogController {
 
-	
+	BlogVo blogVo;
 	List<BlogVo> bloglist;
 	List<CategoryVo> categorylist;
 	List<PostVo> postlist;
@@ -59,11 +59,13 @@ public class BlogController {
 		//Integer.parseInt(String.valueOf(categoryNo))
 		
 
-		//블로그 리스트는 쓸모없는데 우선은 그냥 박아두었다.
-		bloglist = blogService.getBlogListById(id);
-		BlogVo blogVo = bloglist.get(0);
-		//블로그 title은 필요합니다.
+		//블로그 리스트는 아마 당장은 쓸일업을 것이다.
+		//bloglist = blogService.getBlogListById(id);
 		
+		
+		//해당 id의 블로그 정보를 뽑아오기 위한 용도
+		blogVo = blogService.getBlogVoById(id);
+		System.out.println(blogVo);		
 		
 		//id를 통해 카테고리 리스트 받아오는 이친구는 카테고리 리스트 띄어주는 용도
 		categorylist = categoryService.getCategoryById(id);

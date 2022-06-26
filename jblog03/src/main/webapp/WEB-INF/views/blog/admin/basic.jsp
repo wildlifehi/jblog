@@ -25,11 +25,11 @@
 					<li><a href="${pageContext.request.contextPath}/blog/category">카테고리</a></li>
 					<li><a href="${pageContext.request.contextPath}/blog/write">글작성</a></li>
 				</ul>
-				<form action="" method="post">
+				<form action="${pageContext.request.contextPath}/" method="post">
 	 		      	<table class="admin-config">
 			      		<tr>
 			      			<td class="t">블로그 제목</td>
-			      			<td><input type="text" size="40" name="title" value="1"></td>
+			      			<td><input type="text" size="40" name="title"></td>
 			      		</tr>
 			      		<tr>
 			      			<td class="t">로고이미지</td>

@@ -1,7 +1,5 @@
 package com.douzone.jblog.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,10 +22,16 @@ public class BlogService {
 		
 		blogRepository.insert(blogvo);
 	}
+	
+	//블로그 전체 내용을 뽑는 내용으로 아마 안쓸 것
+//	public List<BlogVo> getBlogListById(String id) {
+//		
+//		return blogRepository.findAllByID(id);
+//	}
 
-	public List<BlogVo> getBlogListById(String id) {
+	public BlogVo getBlogVoById(String id) {
 		
-		return blogRepository.findAllByID(id);
+		return blogRepository.findByID(id);
 	}
 
 }
