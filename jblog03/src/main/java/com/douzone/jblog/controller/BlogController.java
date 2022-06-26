@@ -9,9 +9,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.douzone.jblog.service.BlogService;
 import com.douzone.jblog.service.CategoryService;
+import com.douzone.jblog.service.FileUploadService;
 import com.douzone.jblog.service.PostService;
 import com.douzone.jblog.vo.BlogVo;
 import com.douzone.jblog.vo.CategoryVo;
@@ -34,6 +36,9 @@ public class BlogController {
 	
 	@Autowired
 	private PostService postService;
+	
+	@Autowired
+	private FileUploadService fileUploadService;
 	
 	
 	@RequestMapping({"", "/{pathNo1}", "/{pathNo1}/{pathNo2}"})
@@ -104,14 +109,19 @@ public class BlogController {
 
 	//업뎃 내용으로 아직 이미지는 업로드되지 않는 상태이다.
 	@RequestMapping("/blogUpdate")
-	public String blogUpdate(@PathVariable("id") String id, @RequestParam("title") String title) {
+	public String blogUpdate(
+				@PathVariable("id") String id,
+				@RequestParam("title") String title,
+				@RequestParam("logoFile") MultipartFile logoFile ) {
+		
+		String url = fileUploadService.restoreImage(logoFile);
+		
 		
 		//여기서 blogVo 내용을 수정해서 업데이트 해줄 것.
 		blogVo.setTitle(title);
 		
-		//파일도 위에처럼 업뎃해줄것 블로그의 컬럼은 logo로 되어있다.
-		//blogVo.setTitle(file);
-		
+		//여기는 블로그 이미지 url을 넣어준다.
+		blogVo.setLogo(url);
 		
 		blogService.setBlogUpdate(blogVo);
 		

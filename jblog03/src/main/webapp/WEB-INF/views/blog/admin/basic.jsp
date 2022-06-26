@@ -25,7 +25,7 @@
 					<li><a href="${pageContext.request.contextPath}/blog/category">카테고리</a></li>
 					<li><a href="${pageContext.request.contextPath}/blog/write">글작성</a></li>
 				</ul>
-				<form action="${pageContext.request.contextPath}/${authUser.id }/blogUpdate" method="post">
+				<form action="${pageContext.request.contextPath}/${authUser.id }/blogUpdate" method="post" enctype="multipart/form-data">
 	 		      	<table class="admin-config">
 			      		<tr>
 			      			<td class="t">블로그 제목</td>
@@ -37,7 +37,7 @@
 			      		</tr>      		
 			      		<tr>
 			      			<td class="t">&nbsp;</td>
-			      			<td><input type="file" name="logo-file"></td>      			
+			      			<td><input type="file" name="logoFile"></td>      			
 			      		</tr>           		
 			      		<tr>
 			      			<td class="t">&nbsp;</td>

@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<% pageContext.setAttribute("newline", "\n"); %>
 <!doctype html>
 <html>
 <head>
@@ -28,7 +29,7 @@
 							<p> 카테고리와 함께 하단의 원하는 포스트를 선택해주세요 <p>
 						</c:when>
 						<c:otherwise>
-							<p> ${postVo.contents } <p>
+							<p> ${fn:replace(postVo.contents, newline, "<br/>") } <p>
 						</c:otherwise>
 					</c:choose>
 					
