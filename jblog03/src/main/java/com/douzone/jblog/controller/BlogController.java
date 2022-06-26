@@ -50,10 +50,10 @@ public class BlogController {
 		if(pathNo2.isPresent()) {
 			categoryNo = Long.parseLong(pathNo1.get());
 			postNo = Long.parseLong(pathNo2.get());
-			System.out.println("포스트랑 같이 올라옴");
+
 		} else if(pathNo1.isPresent()) {
 			categoryNo = Long.parseLong(pathNo1.get());
-			System.out.println("이것만 실행될텐데?");
+
 		}
 		
 		//Integer.parseInt(String.valueOf(categoryNo))
@@ -61,6 +61,7 @@ public class BlogController {
 
 		//블로그 리스트는 쓸모없는데 우선은 그냥 박아두었다.
 		bloglist = blogService.getBlogListById(id);
+		BlogVo blogVo = bloglist.get(0);
 		//블로그 title은 필요합니다.
 		
 		
@@ -73,13 +74,15 @@ public class BlogController {
 		//System.out.println(postlist);
 		
 		//이친구는 포스트 번호 받아서 해당번호에 해당하는 글 가져오는 용도.
+		//없으면 널 값을 보내준다.
 		if (postNo != 0L) {
 			postVo = postService.getPostContentsByPostNo(postNo);
-			System.out.println(postVo);
-		} 
+		} else {
+			postVo = null;
+		}
 		
-		System.out.println(postVo);
-		
+
+		model.addAttribute("blogVo", blogVo);
 		model.addAttribute("categorylist", categorylist);
 		model.addAttribute("postlist", postlist);
 		model.addAttribute("postVo", postVo);
