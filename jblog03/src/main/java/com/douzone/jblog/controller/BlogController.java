@@ -22,7 +22,6 @@ import com.douzone.jblog.vo.PostVo;
 public class BlogController {
 
 	BlogVo blogVo;
-	List<BlogVo> bloglist;
 	List<CategoryVo> categorylist;
 	List<PostVo> postlist;
 	PostVo postVo;
@@ -96,8 +95,9 @@ public class BlogController {
 	
 	//************블로그 수정 관련 핸들러 모음**************//
 	@RequestMapping("/admin")
-	public String admin() {
+	public String admin(Model model) {
 		
+		model.addAttribute("blogVo", blogVo);
 		return "blog/admin/basic";
 	}
 	
@@ -124,8 +124,9 @@ public class BlogController {
 	//************카테고리 관련 핸들러 모음**************//
 	//추후 그냥 누르면 겟 방식, 내용 저장시 포스트 방식으로 분기해줄 것 
 	@RequestMapping("/category")
-	public String category() {
+	public String category(Model model) {
 		
+		model.addAttribute("blogVo", blogVo);
 		return "blog/admin/category";
 		
 	}
@@ -146,6 +147,7 @@ public class BlogController {
 	@RequestMapping("/write")
 	public String write(Model model) {
 		
+		model.addAttribute("blogVo", blogVo);
 		model.addAttribute("categorylist", categorylist);
 		return "blog/admin/write";
 	}
@@ -155,6 +157,7 @@ public class BlogController {
 	public String postInsert(@PathVariable("id") String id, @RequestParam("category") String category, PostVo postVo, Model model) {
 		
 		if ("default".equals(category)) {
+			
 			
 			return "redirect:/blog/write";
 
