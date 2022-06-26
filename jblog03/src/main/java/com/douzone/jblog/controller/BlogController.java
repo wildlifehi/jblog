@@ -40,18 +40,20 @@ public class BlogController {
 	@RequestMapping({"", "/{pathNo1}", "/{pathNo1}/{pathNo2}"})
 	public String index(
 		@PathVariable("id") String id,
-		@PathVariable("pathNo1") Optional<Long> pathNo1,
-		@PathVariable("pathNo2") Optional<Long> pathNo2, Model model) {
+		@PathVariable("pathNo1") Optional<String> pathNo1,
+		@PathVariable("pathNo2") Optional<String> pathNo2, Model model) {
 		
 		
 		Long categoryNo = 0L ;
 		Long postNo = 0L ;
 		
 		if(pathNo2.isPresent()) {
-			categoryNo = pathNo1.get();
-			postNo = pathNo2.get();
+			categoryNo = Long.parseLong(pathNo1.get());
+			postNo = Long.parseLong(pathNo2.get());
+			System.out.println("포스트랑 같이 올라옴");
 		} else if(pathNo1.isPresent()) {
-			categoryNo = pathNo1.get();
+			categoryNo = Long.parseLong(pathNo1.get());
+			System.out.println("이것만 실행될텐데?");
 		}
 		
 		//Integer.parseInt(String.valueOf(categoryNo))
@@ -61,22 +63,22 @@ public class BlogController {
 		bloglist = blogService.getBlogListById(id);
 		//블로그 title은 필요합니다.
 		
-		//System.out.println(bloglist);
 		
-		
-		
-		//이친구는 카테고리 리스트 띄어주는 용도
+		//id를 통해 카테고리 리스트 받아오는 이친구는 카테고리 리스트 띄어주는 용도
 		categorylist = categoryService.getCategoryById(id);
 		//System.out.println(categorylist);
 	
-		//이친구는 포스트 리스트 띄어주는 용도
+		//categoryNo 통해 포스트 리스트 받아오는 이친구는 포스트 리스트 띄어주는 용도
 		postlist = postService.getPostlistByCategoryNo(categoryNo);
 		//System.out.println(postlist);
 		
 		//이친구는 포스트 번호 받아서 해당번호에 해당하는 글 가져오는 용도.
-		postVo = postService.getPostContentsByPostNo(postNo);
-		//System.out.println(postVo);
+		if (postNo != 0L) {
+			postVo = postService.getPostContentsByPostNo(postNo);
+			System.out.println(postVo);
+		} 
 		
+		System.out.println(postVo);
 		
 		model.addAttribute("categorylist", categorylist);
 		model.addAttribute("postlist", postlist);
@@ -87,12 +89,7 @@ public class BlogController {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
+	//************블로그 수정 관련 핸들러 모음**************//
 	@RequestMapping("/admin")
 	public String admin() {
 		
@@ -100,19 +97,20 @@ public class BlogController {
 		return "blog/admin/basic";
 	}
 	
+	
+	//************카테고리 관련 핸들러 모음**************//
+	//추후 그냥 누르면 겟 방식, 내용 저장시 포스트 방식으로 분기해줄 것 
 	@RequestMapping("/category")
 	public String category() {
 		
 		return "blog/admin/category";
+		
 	}
-	
 	
 	@RequestMapping("/categoryInsert")
 	public String categoryInsert(@PathVariable("id") String id, CategoryVo categoryVo, Model model) {
 		
-		
-	//카테고리명 중복안되게 반드시 체크해줄것.
-		
+	//카테고리명 중복 안되게 코드 수정필요!!!!!!!!!
 		categoryVo.setBlogId(id);
 		categoryService.categoryInsert(categoryVo);
 		
@@ -120,6 +118,8 @@ public class BlogController {
 	}
 	
 	
+	//************포스트 관련 핸들러 모음**************//
+	//추후 그냥 누르면 겟 방식, 내용 저장시 포스트 방식으로 분기해줄 것 
 	@RequestMapping("/write")
 	public String write(Model model) {
 		
@@ -127,12 +127,9 @@ public class BlogController {
 		return "blog/admin/write";
 	}
 	
-	//@PathVariable("category") String category
 	
 	@RequestMapping("/postInsert")
 	public String postInsert(@PathVariable("id") String id, @RequestParam("category") String category, PostVo postVo, Model model) {
-		
-		
 		
 		if ("default".equals(category)) {
 			
@@ -151,47 +148,7 @@ public class BlogController {
 			return "redirect:/"+id;
 		}
 		
-
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-//	@ResponseBody
-//	@RequestMapping({"", "/{}", "/{pathNo1}/{pathNo2}"})
-//	public String index(
-//		@PathVariable("id") String id,
-//		@PathVariable("pathNo1") Optional<Long> pathNo1,
-//		@PathVariable("pathNo2") Optional<Long> pathNo2) {
-//		
-//		Long categoryNo = 0L;
-//		Long postNo = 0L;
-//		
-//		if(pathNo2.isPresent()) {
-//			categoryNo = pathNo1.get();
-//			postNo = pathNo2.get();
-//		} else if(pathNo1.isPresent()) {
-//			categoryNo = pathNo1.get();
-//		}
-//		
-//		return "BlogController.index(" + id + ", " + categoryNo + ", " + postNo + ")";
-//	}
 }

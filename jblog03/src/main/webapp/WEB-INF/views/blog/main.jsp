@@ -25,7 +25,8 @@
 					<h4>Spring Camp 2016 참여기</h4>
 					
 					<p>
-					여기에 대충 포스트 글이 올라와야합니다.
+					
+					여기에 대충 기본 선택된 포스트 글이 올라와야합니다.
 					<p>
 					
 					
@@ -40,7 +41,7 @@
 				<h3>포스트 리스트</h3>
 				<ul class="blog-list">
 					<c:forEach items="${postlist }" var="list">
-						<li><a href="">${list.title }</a> <span>2015/05/02</span>	</li>
+						<li><a href="${pageContext.request.contextPath}/${authUser.id }/${list.categoryNo }/${list.no }">${list.title }</a> <span>2015/05/02</span>	</li>
 					</c:forEach>
 				</ul>
 			</div>
@@ -56,8 +57,8 @@
 			<h2>카테고리</h2>
 			
 			<ul>
-				<c:forEach items="${categorylist }" var="list">
-					<li><a href="">${list.name }</a></li>
+				<c:forEach items="${categorylist }" var="list" varStatus="status">
+					<li><a href="${pageContext.request.contextPath}/${authUser.id }/${list.no }">${list.name }</a></li>
 				</c:forEach>
 			</ul>
 		</div>
