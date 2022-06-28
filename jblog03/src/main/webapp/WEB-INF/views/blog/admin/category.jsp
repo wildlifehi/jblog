@@ -43,14 +43,7 @@
 							<td>${list.description }</td>
 							<td><img src="${pageContext.request.contextPath}/assets/images/delete.jpg"></td>
 						</tr>  
-		      		</c:forEach>
-					<tr>
-						<td>1</td>
-						<td>스프링 프로젝트</td>
-						<td>15</td>
-						<td>어쩌구 저쩌구</td>
-						<td><img src="${pageContext.request.contextPath}/assets/images/delete.jpg"></td>
-					</tr>					  
+		      		</c:forEach>	  
 				</table>
       	
       			<h4 class="n-c">새로운 카테고리 추가</h4>

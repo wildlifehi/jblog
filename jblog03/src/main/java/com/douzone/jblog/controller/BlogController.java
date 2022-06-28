@@ -135,9 +135,10 @@ public class BlogController {
 		
 		
 		//카테고리 정보의 블로그 id는 안쓰므로 해당 위치에 post수를 넣어 보내주기
+		//여기에 쓰인 categorylist는 전역변수와 다른 내용을 담고있다!!
 		categorylist = categoryService.getCategoryPostById(id);
 	
-		System.out.println(categorylist);
+
 		model.addAttribute("categorylist", categorylist);
 		//기본 블로그 정보
 		model.addAttribute("blogVo", blogVo);
@@ -148,7 +149,8 @@ public class BlogController {
 	@RequestMapping("/categoryInsert")
 	public String categoryInsert(@PathVariable("id") String id, CategoryVo categoryVo, Model model) {
 		
-	//카테고리명 중복 안되게 코드 수정필요!!!!!!!!!
+		//카테고리명 중복 안되게 코드 수정필요!!!!!!!!!
+		//중복처리 안해주면 나중에 분명히 뻑납니다.
 		categoryVo.setBlogId(id);
 		categoryService.categoryInsert(categoryVo);
 		
