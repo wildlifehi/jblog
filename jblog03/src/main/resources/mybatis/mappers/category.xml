@@ -59,7 +59,7 @@
 	</select>
 	
 	
-	<!-- 휘민이 코드 -->
+	<!-- 참고용 휘민이 코드 -->
 
 	<select id="select" parameterType="string" resultType="categoryvo">
 			<![CDATA[

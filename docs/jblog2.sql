@@ -18,4 +18,14 @@ select * from post;
 
 -- delete 
 
-delete from user;
+-- delete from user;
+-- a.no, a.name, a.description, count(b.title)
+
+  select a.no, a.name, a.description, count(b.title) as blogId
+	from (select *
+			from category a 
+		   where a.blog_id = '1') a
+    left outer join post b
+      on a.no = b.category_no
+group by a.no
+order by a.no desc;
